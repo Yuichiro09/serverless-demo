@@ -37,6 +37,21 @@ def handler(event, context):
             "body": json.dumps({"message": "Hello from Lambda!"})
         }
 
+    elif route == "/contact" and method == "GET":
+        try:
+            response = table.scan()
+            contacts = response.get("Items", [])
+            return {
+                "statusCode": 200,
+                "headers": {"Content-Type": "application/json"},
+                "body": json.dumps({"contacts": contacts})
+            }
+        except Exception as e:
+            return {
+                "statusCode": 500,
+                "body": json.dumps({"error": str(e)})
+            }
+
     elif route == "/contact" and method == "POST":
         body = json.loads(event.get("body", "{}"))
         item = {
