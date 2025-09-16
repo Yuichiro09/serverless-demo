@@ -45,8 +45,7 @@ resource "aws_lambda_function" "api" {
 }
 
 data "aws_dynamodb_table" "contacts" {
-  name         = "contacts"
-  }
+  name = "contacts"
 }
 
 resource "aws_api_gateway_rest_api" "api" {
